@@ -1,0 +1,24 @@
+name: Notificacion Hola Mundo
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  hola-mundo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar codigo
+        uses: actions/checkout@v4
+
+      - name: Ejecutar Hola Mundo
+        run: node hola.js
+
+      - name: Enviar notificacion
+        run: |
+          curl --fail --silent --show-error \
+            -H "Title: GitHub Actions - Hola Mundo" \
+            -d "Se ha subido codigo a main en el repositorio ${{ github.repository }}" \
+            https://ntfy.sh/devops-itla
